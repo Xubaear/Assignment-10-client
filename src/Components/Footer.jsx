@@ -2,28 +2,32 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+       <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
   <nav>
-    <h6 className="footer-title">Services</h6>
-    <a className="link link-hover">Branding</a>
-    <a className="link link-hover">Design</a>
-    <a className="link link-hover">Marketing</a>
-    <a className="link link-hover">Advertisement</a>
+    <h6 className="footer-title text-lg font-bold mb-4 text-white">Services</h6>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Branding</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Design</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Marketing</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Advertisement</a>
   </nav>
+
   <nav>
-    <h6 className="footer-title">Company</h6>
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
+    <h6 className="footer-title text-lg font-bold mb-4 text-white">Company</h6>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">About us</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Contact</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Jobs</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Press kit</a>
   </nav>
+
   <nav>
-    <h6 className="footer-title">Legal</h6>
-    <a className="link link-hover">Terms of use</a>
-    <a className="link link-hover">Privacy policy</a>
-    <a className="link link-hover">Cookie policy</a>
+    <h6 className="footer-title text-lg font-bold mb-4 text-white">Legal</h6>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Terms of use</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Privacy policy</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Cookie policy</a>
   </nav>
 </footer>
+
+
     );
 };
 
