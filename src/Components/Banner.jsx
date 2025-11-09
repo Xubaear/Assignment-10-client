@@ -17,7 +17,7 @@ const Banner = () => {
 </section>
 
            
-        <h2 className="text-5xl font-semibold mt-12 text-center">
+        <h2 className="text-6xl font-semibold my-12 text-center bg-clip-text text-transparent bg-linear-to-r from-green-400 to-blue-500">
             Manage Your Finaces With Ease
         </h2>
 
