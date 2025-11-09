@@ -7,6 +7,7 @@ const Navbar = () => {
      <li><a>Home</a></li>
             <li><a>Add Transaction</a></li>
             <li><a>My Transaction</a></li>
+            <li><a>Reports</a></li>
     </>
 
 
@@ -33,8 +34,15 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Login</a>
+    <a>
+    <button class="button ">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="inner">Login</div>
+</button></a>
   </div>
+  
+
 </div>
     );
 };
