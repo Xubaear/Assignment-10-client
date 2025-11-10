@@ -5,10 +5,10 @@ const Footer = () => {
        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
   <nav>
     <h6 className="footer-title text-lg font-bold mb-4 text-white">Services</h6>
-    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Branding</a>
-    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Design</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Finance</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Investing</a>
     <a className="link link-hover hover:text-green-400 transition-colors duration-300">Marketing</a>
-    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Advertisement</a>
+    <a className="link link-hover hover:text-green-400 transition-colors duration-300">Expense</a>
   </nav>
 
   <nav>
