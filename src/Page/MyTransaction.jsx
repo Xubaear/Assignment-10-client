@@ -9,7 +9,7 @@ const MyTransactions = () => {
   const userEmail = "user@gmail.com"; // logged-in user
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-transactions?email=${userEmail}`)
+    fetch(`http://localhost:5173//my-transactions?email=${userEmail}`)
       .then(res => res.json())
       .then(data => setTransactions(data));
   }, []);
@@ -23,7 +23,7 @@ const MyTransactions = () => {
     });
 
     if (confirm.isConfirmed) {
-      await fetch(`http://localhost:3000/transaction/${id}`, { method: "DELETE" });
+      await fetch(`http://localhost:5173/transaction/${id}`, { method: "DELETE" });
       setTransactions(transactions.filter(t => t._id !== id));
       Swal.fire("Deleted!", "Transaction removed successfully!", "success");
     }
