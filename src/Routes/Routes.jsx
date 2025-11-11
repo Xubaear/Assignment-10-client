@@ -5,6 +5,9 @@ import Home from '../Components/Home';
 import Login from '../Page/Login';
 import Register from '../Page/Register';
 import Error from '../Page/Error';
+import AddTransaction from '../Page/AddTransaction';
+import MyTransactions from '../Page/MyTransaction';
+import Reports from '../Page/Reports';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +17,18 @@ const router = createBrowserRouter([
         index: true,
         path: '/',
         Component: Home
+      },
+      {
+       path: '/add-transaction',
+       Component: AddTransaction
+      },
+      {
+        path: '/my-transactions',
+        Component: MyTransactions
+      },
+      {
+        path: '/reports',
+        Component: Reports
       },
       {
         path: '/login',
@@ -27,7 +42,8 @@ const router = createBrowserRouter([
         path: '/*',
         Component: Error
       }
-    ]
+    ],
+    
   },
   
 ]);

@@ -1,60 +1,143 @@
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const AddTransaction = () => {
-  useEffect(()=>{
-      document.title= 'Add Transaction'
-    })
-  const [formData, setFormData] = useState({
-    type: "income",
-    category: "",
-    amount: "",
-    description: "",
-    date: "",
-    email: "user@gmail.com", 
-    name: "Hero" 
-  });
+  
+  const { user } = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+ 
+  const [type, setType] = useState('income');
+  const [category, setCategory] = useState('');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:5173//add-transaction", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    if (res.ok) {
-      Swal.fire("Success!", "Transaction added successfully!", "success");
-      setFormData({ ...formData, amount: "", description: "", date: "" });
+
+   
+    const transactionData = {
+      type,
+      category,
+      amount: parseFloat(amount),
+      description,
+      date: new Date(date),
+      email: user?.email,
+      name: user?.displayName,
+    };
+
+    try {
+    
+      
+      const res = await fetch('http://localhost:3000/add-transaction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(transactionData),
+      });
+
+      const data = await res.json();
+
+      if (data.insertedId) {
+        alert('Transaction added successfully!'); 
+        setType('income');
+        setCategory('');
+        setAmount('');
+        setDescription('');
+        setDate('');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to add transaction!');
     }
   };
 
-  return (
-    <div className="max-w-md mx-auto mt-10 bg-base-200 p-6 rounded-xl shadow">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add Transaction</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+  useEffect(() => {
+    document.title = 'Add Transaction'; 
+  }, []);
 
-        <select name="type" value={formData.type} onChange={handleChange} className="select select-bordered w-full">
+  return (
+    <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md">
+      <h2 className="text-2xl font-bold mb-6 text-center">Add Transaction</h2>
+      <form onSubmit={handleSubmit}>
+        
+        <label className="label">Type</label> <br />
+        <select
+          className="input mb-4"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-
-        <select name="category" value={formData.category} onChange={handleChange} className="select select-bordered w-full">
+<br />
+        
+        <label className="label">Category</label> 
+      <br />
+        <select
+          className="input mb-4"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        >
           <option value="">Select Category</option>
-          <option value="salary">Salary</option>
           <option value="home">Home</option>
           <option value="food">Food</option>
-          <option value="others">Others</option>
+          <option value="salary">Salary</option>
+          <option value="other">Other</option>
         </select>
 
-        <input type="number" name="amount" placeholder="Amount" value={formData.amount} onChange={handleChange} className="input input-bordered w-full" required />
-        <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} className="input input-bordered w-full" />
-        <input type="date" name="date" value={formData.date} onChange={handleChange} className="input input-bordered w-full" required />
+   <br />
+        <label className="label">Amount</label>
+        <br />
+        <input
+          type="number"
+          className="input mb-4"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          required
+        />
 
-        <button type="submit" className="btn btn-primary w-full">Add Transaction</button>
+        
+        <label className="label">Description</label>
+        <input
+          type="text"
+          className="input mb-4"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+<br />
+        
+        <label className="label">Date</label> <br />
+        <input
+          type="date"
+          className="input mb-4"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
+
+       <br />
+        <label className="label">Email</label><br />
+        <input
+          type="text"
+          className="input mb-4"
+          value={user?.email || ''}
+          readOnly
+        />
+
+      <br />
+        <label className="label">Name</label> <br />
+        <input
+          type="text"
+          className="input mb-4"
+          value={user?.displayName || ''}
+          readOnly
+        />
+
+        <button type="submit" className="btn btn-neutral w-full mt-4">
+          Add Transaction
+        </button>
       </form>
     </div>
   );

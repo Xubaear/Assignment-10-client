@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from './Banner';
 import Footer from './Footer';
 
-const Home = () => {
+
+
+
+const Home = () => {  
+    
+    useEffect(() => {
+    document.title = 'Home';
+  }, []);
     return (
         <div>
-            
-                <Banner></Banner>
-                <Footer></Footer>
+            <Banner></Banner>
+            <Footer></Footer>
+                
+               
+                
 
 
         </div>
