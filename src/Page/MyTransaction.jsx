@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const MyTransactions = () => {
+    useEffect(()=>{
+      document.title= 'My Transaction'
+    })
   const [transactions, setTransactions] = useState([]);
   const userEmail = "user@gmail.com"; // logged-in user
 
