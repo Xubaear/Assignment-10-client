@@ -27,14 +27,14 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // 🔹 FIXED — updated to store user after Google login
+  
   const signInWithGoogle = () => {
     
     return signInWithPopup(auth, googleProvider)
       .then((result) => {
         const loggedUser = result.user;
-        console.log("Google login user:", loggedUser); // ✅ check photoURL here
-        setUser(loggedUser); // 🔹 make sure state updates instantly
+        console.log("Google login user:", loggedUser); 
+        setUser(loggedUser); 
         return loggedUser;
       })
       .catch((error) => {
@@ -47,9 +47,9 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // 🔹 Added console.log to verify photoURL is present
+    
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Current User:", currentUser); // ✅ see if photoURL appears here
+      console.log("Current User:", currentUser); 
       setUser(currentUser);
       setLoading(false); 
     });

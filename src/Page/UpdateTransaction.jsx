@@ -4,7 +4,7 @@ import PrivateRoute from "../Provider/PrivateRoute";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const UpdateTransaction = () => {
-  // extract id from current URL
+  
   const pathParts = window.location.pathname.split("/");
   const id = pathParts[pathParts.length - 1];
 
@@ -28,7 +28,7 @@ const UpdateTransaction = () => {
         setAmount(data.amount ?? "");
         setDescription(data.description || "");
         if (data.date) {
-          // convert to yyyy-mm-dd for input[type=date]
+          
           const d = new Date(data.date);
           const yyyy = d.getFullYear();
           const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -49,13 +49,13 @@ const UpdateTransaction = () => {
   useEffect(() => {
     document.title = "Update Transaction";
     fetchTransaction();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // simple validation
+    
     if (!category || !amount || !date) {
       Swal.fire("Missing", "Please fill required fields", "warning");
       return;
@@ -67,7 +67,7 @@ const UpdateTransaction = () => {
       amount: parseFloat(amount),
       description,
       date: new Date(date),
-      // keep email and name if you want, but backend updates only fields you set
+    
       email: user?.email,
       name: user?.displayName,
     };
@@ -80,10 +80,10 @@ const UpdateTransaction = () => {
       });
 
       const data = await res.json();
-      // Mongo updateOne returns modifiedCount / matchedCount - treat any ok as success
+      
       if (res.ok) {
         Swal.fire("Updated", "Transaction updated successfully", "success").then(() => {
-          // go to details page to show updated info
+         
           window.location.href = `/transaction/${id}`;
         });
       } else {

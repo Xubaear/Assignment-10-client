@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const TransactionDetails = () => {
-  // extract id from URL
+
   const pathParts = window.location.pathname.split("/");
   const id = pathParts[pathParts.length - 1];
 
@@ -20,7 +20,7 @@ const TransactionDetails = () => {
       const data = await res.json();
       setTransaction(data || null);
 
-      // compute category total for this user
+     
       if (user?.email && data?.category) {
         const res2 = await fetch(`http://localhost:3000/my-transactions?email=${user.email}`);
         const all = await res2.json();
@@ -41,7 +41,6 @@ const TransactionDetails = () => {
   useEffect(() => {
     document.title = "Transaction Details";
     fetchDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, user?.email]);
 
   const handleDelete = async () => {
@@ -76,19 +75,19 @@ const TransactionDetails = () => {
 
   return (
     <PrivateRoute>
-      <div className="max-w-3xl mx-auto mt-10 p-6 bg-base-100 shadow-md rounded-md">
+      <div className="max-w-3xl mx-auto mt-10 p-6 bg-gray-900 shadow-md rounded-md">
         <h2 className="text-2xl font-bold mb-4">Transaction Details</h2>
 
         <div className="mb-4">
           <p><strong>Category:</strong> {transaction.category}</p>
           <p><strong>Type:</strong> {transaction.type}</p>
           <p><strong>Amount:</strong> {Number(transaction.amount).toLocaleString()} Tk</p>
-          <p><strong>Date:</strong> {transaction.date ? new Date(transaction.date).toLocaleDateString() : "N/A"}</p>
-          <p><strong>Description:</strong> {transaction.description || "N/A"}</p>
+          <p><strong>Date:</strong> {transaction.date ? new Date(transaction.date).toLocaleDateString() : ""}</p>
+          <p><strong>Description:</strong> {transaction.description || ""}</p>
         </div>
 
         <div className="mb-4">
-          <p><strong>Total for category "{transaction.category}" (you):</strong> {Number(categoryTotal).toLocaleString()} Tk</p>
+          <p><strong>Total for category - "{transaction.category}" :</strong> {Number(categoryTotal).toLocaleString()} Tk</p>
         </div>
 
         <div className="flex gap-3">

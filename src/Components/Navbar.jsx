@@ -1,108 +1,97 @@
-import React, { useContext, useState } from "react";
-// 🔹 Use react-router for links (you already did)
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext); // ✅ get user & logout
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef();
 
   const handleLogout = () => {
-    logOut()
-      .then(() => setDropdownOpen(false)) // ✅ close dropdown after logout
-      .catch(err => console.log(err));
+    logOut().then(() => {
+      setMobileOpen(false);
+      setProfileOpen(false);
+    });
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const links = (
     <>
-      <Link to="/"><li><a>Home</a></li></Link>
-      {user && <Link to="/add-transaction"><li><a>Add Transaction</a></li></Link>}
-      {user && <Link to="/my-transactions"><li><a>My Transaction</a></li></Link>}
-      {user && <Link to="/reports"><li><a>Reports</a></li></Link>}
+      <li><Link to="/">Home</Link></li>
+      {user && <li><Link to="/add-transaction">Add Transaction</Link></li>}
+      {user && <li><Link to="/my-transactions">My Transaction</Link></li>}
+      {user && <li><Link to="/reports">Reports</Link></li>}
     </>
   );
 
   return (
-    <div className="navbar bg-linear-to-r from-gray-800 via-gray-700 to-gray-600 text-white shadow-md max-w-6xl mx-auto rounded-xl">
+    <div className="navbar bg-gray-800 text-white max-w-6xl mx-auto rounded-xl shadow-md">
       
-      {/* Navbar Start */}
       <div className="navbar-start">
         <div className="dropdown">
-          <div
-            tabIndex={0}
-            role="button"
+          <button
             className="btn btn-ghost lg:hidden"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
+            onClick={() => setMobileOpen(!mobileOpen)}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> 
-            </svg>
-          </div>
-
-          {dropdownOpen && (
-            <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
+            ☰
+          </button>
+          {mobileOpen && (
+            <ul className="menu dropdown-content bg-gray-700 p-3 rounded shadow mt-2 w-48">
               {links}
               {user && (
-                <li className="mt-2 border-t pt-2">
-                  {/*  Show email */}
-                  <span className="block px-2 py-1">{user.email}</span>
-                  {/*  Logout button */}
-                  <button onClick={handleLogout} className="btn btn-error btn-sm w-full mt-1">Logout</button>
-                </li>
+                <>
+                  <li><Link to="/my-profile">My Profile</Link></li>
+                  <li>
+                    <span>{user.email}</span>
+                    <button onClick={handleLogout} className="btn btn-error btn-sm w-full mt-1">
+                      Logout
+                    </button>
+                  </li>
+                </>
               )}
             </ul>
           )}
         </div>
-
-        <Link to="/" className="btn btn-ghost text-xl">FinEase</Link>
+        <Link to="/" className="btn btn-ghost text-xl ml-2">FinEase</Link>
       </div>
-      {/* Navbar Start End */}
 
-      {/* Navbar Center */}
+      
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      {/* Navbar Center End */}
 
-      {/* Navbar End */}
-      <div className="navbar-end">
-        {!user ? (
-          // 🔹 Login Button (if no user)
-          <button onClick={() => (window.location.href = "/login")} className="button">
-            <div className="blob1"></div>
-            <div className="blob2"></div>
-            <div className="inner">Login</div>
-          </button>
-        ) : (
-          <div className="relative">
-            {/* 🔹 Profile picture */}
+      
+      <div className="navbar-end relative" ref={profileRef}>
+        {user ? (
+          <>
             <img
               src={user.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
-              
-              className="w-10 h-10 rounded-full border-2 border-green-500 cursor-pointer"
-              onClick={() => setDropdownOpen(!dropdownOpen)} 
-              referrerPolicy="no-referrer" 
+              className="w-10 h-10 rounded-full cursor-pointer border-2 border-green-500"
+              onClick={() => setProfileOpen(!profileOpen)}
             />
-
-            {/* 🔹 Dropdown under profile pic */}
-            {dropdownOpen && (
-              <div className="absolute right-0  mt-2 w-60 bg-gray-700 rounded shadow-lg p-3 z-50">
-                <p className="text-sm mb-2  text-center">{user.email}</p>
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-error w-full btn-sm mt-2"
-                >
-                  Logout
-                </button>
+            {profileOpen && (
+              <div className="absolute right-0 mt-2 w-52 bg-gray-700 rounded shadow p-3 z-50">
+                <Link to="/my-profile"><p className="text-center font-medium cursor-pointer">My Profile</p></Link>
+                <p className="text-center">{user.email}</p>
+                <button onClick={handleLogout} className="btn btn-error w-full btn-sm mt-2">Logout</button>
               </div>
             )}
-          </div>
+          </>
+        ) : (
+          <button onClick={() => (window.location.href = "/login")} className="btn">Login</button>
         )}
       </div>
-      {/* Navbar End End */}
-
     </div>
   );
 };

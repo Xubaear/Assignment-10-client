@@ -13,15 +13,23 @@ const AddTransaction = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+    if (!amount || !date || !category) {
+      alert("Please fill all required fields!");
+      return;
+    }
+
     const transactionData = {
       type,
       category,
       amount: parseFloat(amount),
       description,
-      date: new Date(date),
+      date: new Date(date), 
       email: user?.email,
       name: user?.displayName,
     };
+
+    console.log("Submitting:", transactionData);
 
     try {
       const res = await fetch('http://localhost:3000/add-transaction', {
@@ -40,8 +48,10 @@ const AddTransaction = () => {
         setDescription('');
         setDate('');
 
-        // 🔹 Dispatch custom event for Banner to update dynamically
+        
         window.dispatchEvent(new Event('transactionsUpdated'));
+      } else {
+        alert('Failed to add transaction!');
       }
     } catch (err) {
       console.error(err);
@@ -57,7 +67,7 @@ const AddTransaction = () => {
     <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Transaction</h2>
       <form onSubmit={handleSubmit}>
-        <label className="label">Type</label> <br />
+        <label className="label">Type</label>
         <select
           className="input mb-4"
           value={type}
@@ -66,9 +76,8 @@ const AddTransaction = () => {
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-        <br />
 
-        <label className="label">Category</label> <br />
+        <label className="label">Category</label>
         <select
           className="input mb-4"
           value={category}
@@ -81,9 +90,8 @@ const AddTransaction = () => {
           <option value="salary">Salary</option>
           <option value="other">Other</option>
         </select>
-        <br />
 
-        <label className="label">Amount</label> <br />
+        <label className="label">Amount</label>
         <input
           type="number"
           className="input mb-4"
@@ -99,9 +107,8 @@ const AddTransaction = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <br />
 
-        <label className="label">Date</label> <br />
+        <label className="label">Date</label>
         <input
           type="date"
           className="input mb-4"
@@ -109,18 +116,16 @@ const AddTransaction = () => {
           onChange={(e) => setDate(e.target.value)}
           required
         />
-        <br />
 
-        <label className="label">Email</label> <br />
+        <label className="label">Email</label>
         <input
           type="text"
           className="input mb-4"
           value={user?.email || ''}
           readOnly
         />
-        <br />
 
-        <label className="label">Name</label> <br />
+        <label className="label">Name</label>
         <input
           type="text"
           className="input mb-4"

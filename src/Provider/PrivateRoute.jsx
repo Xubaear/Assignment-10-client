@@ -24,7 +24,7 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  // render children only if allowed
+ 
   return allowed ? <>{children}</> : null;
 };
 

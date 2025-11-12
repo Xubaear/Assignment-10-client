@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router'; // ✅ তুমি যেভাবে ব্যবহার করছো, ঠিক সেভাবেই থাকছে
+import { Link } from 'react-router'; 
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Register = () => {
@@ -10,9 +10,8 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  // ❌ তুমি use(AuthContext) লিখেছো — এটা ভুল
-  // ✅ নিচের মতো useContext(AuthContext) করতে হবে
-  const { createUser, setUser, signInWithGoogle } = useContext(AuthContext); // 👉 এটা change করা হয়েছে
+  
+  const { createUser, setUser, signInWithGoogle } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ const Register = () => {
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body items-center">
+          <div className="card-body ">
             <h1 className="text-5xl font-bold">Register Now!</h1>
 
             <form onSubmit={handleRegister}>
@@ -86,7 +85,7 @@ const Register = () => {
               {success && <p className="text-green-500 mt-2">Account created successfully.</p>}
               {error && <p className="text-red-500 mt-2">{error}</p>}
 
-              <div className="text-center">
+              <div className="w-160">
                 <button type="submit" className="btn btn-neutral w-1/2">
                   Register
                 </button>

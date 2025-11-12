@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router'; // ✅ তুমি react-router use করছো, তাই রেখে দেওয়া হয়েছে
+import { Link, useLocation, useNavigate } from 'react-router'; 
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
@@ -7,10 +7,10 @@ const Login = () => {
     document.title = 'Login';
   }, []);
 
-  const { signIn, signInWithGoogle } = useContext(AuthContext); // ✅ use(AuthContext) নয়, useContext(AuthContext)
+  const { signIn, signInWithGoogle } = useContext(AuthContext); 
   const emailRef = useRef();
 
-  const navigate = useNavigate(); // ✅ react-router v6 এ এটা কাজ করে
+  const navigate = useNavigate(); 
   const location = useLocation();
 
   const handleLogin = (e) => {
@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl -mt-100">
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
           <div className="card-body">
             <h1 className="text-5xl font-bold">Login now!</h1>
             <form onSubmit={handleLogin}>

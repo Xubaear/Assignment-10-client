@@ -10,6 +10,7 @@ import MyTransactions from '../Page/MyTransaction';
 import Reports from '../Page/Reports';
 import TransactionDetails from '../Page/TransactionDetails';
 import UpdateTransaction from '../Page/UpdateTransaction';
+import MyProfile from '../Page/MyProfile';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/reports',
         Component: Reports
+      },
+      {
+        path: '/my-profile',
+        Component: MyProfile
       },
       {
         path: '/login',

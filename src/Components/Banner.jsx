@@ -5,7 +5,7 @@ const Banner = () => {
   const { user } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
 
-  // 🔹 Fetch user's transactions from backend
+  
   const fetchTransactions = async () => {
     if (!user) return;
     try {
@@ -20,14 +20,14 @@ const Banner = () => {
   useEffect(() => {
     fetchTransactions();
 
-    // 🔹 Listen to AddTransaction updates
+    
     const handleUpdate = () => fetchTransactions();
     window.addEventListener('transactionsUpdated', handleUpdate);
 
     return () => window.removeEventListener('transactionsUpdated', handleUpdate);
   }, [user]);
 
-  // 🔹 Calculate totals
+  
   const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
   const expenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
   const balance = income - expenses;
@@ -51,24 +51,24 @@ const Banner = () => {
         </h2>
       </div>
 
-      {/* 🔹 Dynamic Cards */}
-      <div className='md:flex justify-center items-center gap-4 mt-12 max-w-2xl mx-auto'>
-        <div className="card">
-          <div className="card2">
+     
+      <div className='flex flex-col md:flex-row justify-center items-center gap-4 mt-12 max-w-2xl mx-auto'>
+        <div className="cart">
+          <div className="cart2">
             <span className='text-4xl'>Balance</span>
             <p className='text-2xl mt-2'>{balance} Taka</p>
           </div>
         </div>
 
-        <div className="card">
-          <div className="card2">
+        <div className="cart">
+          <div className="cart2">
             <span className='text-4xl'>Income</span>
             <p className='text-2xl mt-2'>{income} Taka</p>
           </div>
         </div>
 
-        <div className="card">
-          <div className="card2">
+        <div className="cart">
+          <div className="cart2">
             <span className='text-4xl'>Expenses</span>
             <p className='text-2xl mt-2'>{expenses} Taka</p>
           </div>
