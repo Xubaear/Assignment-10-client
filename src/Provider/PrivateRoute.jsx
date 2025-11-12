@@ -8,10 +8,10 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        // redirect to login manually
+        
         window.location.href = "/login";
       } else {
-        setAllowed(true); // user is logged in, allow page
+        setAllowed(true); 
       }
     }
   }, [user, loading]);

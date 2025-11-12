@@ -8,6 +8,9 @@ import Error from '../Page/Error';
 import AddTransaction from '../Page/AddTransaction';
 import MyTransactions from '../Page/MyTransaction';
 import Reports from '../Page/Reports';
+import TransactionDetails from '../Page/TransactionDetails';
+import UpdateTransaction from '../Page/UpdateTransaction';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: '/my-transactions',
         Component: MyTransactions
+      },
+       {
+        path: '/transaction/:id',
+        Component: TransactionDetails
+      },
+       {
+        path: '/transaction/update/:id',
+        Component: UpdateTransaction
       },
       {
         path: '/reports',

@@ -2,21 +2,17 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const AddTransaction = () => {
-  
   const { user } = useContext(AuthContext);
 
- 
   const [type, setType] = useState('income');
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   
     const transactionData = {
       type,
       category,
@@ -28,8 +24,6 @@ const AddTransaction = () => {
     };
 
     try {
-    
-      
       const res = await fetch('http://localhost:3000/add-transaction', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,12 +33,15 @@ const AddTransaction = () => {
       const data = await res.json();
 
       if (data.insertedId) {
-        alert('Transaction added successfully!'); 
+        alert('Transaction added successfully!');
         setType('income');
         setCategory('');
         setAmount('');
         setDescription('');
         setDate('');
+
+        // 🔹 Dispatch custom event for Banner to update dynamically
+        window.dispatchEvent(new Event('transactionsUpdated'));
       }
     } catch (err) {
       console.error(err);
@@ -53,14 +50,13 @@ const AddTransaction = () => {
   };
 
   useEffect(() => {
-    document.title = 'Add Transaction'; 
+    document.title = 'Add Transaction';
   }, []);
 
   return (
     <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Transaction</h2>
       <form onSubmit={handleSubmit}>
-        
         <label className="label">Type</label> <br />
         <select
           className="input mb-4"
@@ -70,10 +66,9 @@ const AddTransaction = () => {
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-<br />
-        
-        <label className="label">Category</label> 
-      <br />
+        <br />
+
+        <label className="label">Category</label> <br />
         <select
           className="input mb-4"
           value={category}
@@ -86,10 +81,9 @@ const AddTransaction = () => {
           <option value="salary">Salary</option>
           <option value="other">Other</option>
         </select>
-
-   <br />
-        <label className="label">Amount</label>
         <br />
+
+        <label className="label">Amount</label> <br />
         <input
           type="number"
           className="input mb-4"
@@ -98,7 +92,6 @@ const AddTransaction = () => {
           required
         />
 
-        
         <label className="label">Description</label>
         <input
           type="text"
@@ -106,8 +99,8 @@ const AddTransaction = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-<br />
-        
+        <br />
+
         <label className="label">Date</label> <br />
         <input
           type="date"
@@ -116,17 +109,17 @@ const AddTransaction = () => {
           onChange={(e) => setDate(e.target.value)}
           required
         />
+        <br />
 
-       <br />
-        <label className="label">Email</label><br />
+        <label className="label">Email</label> <br />
         <input
           type="text"
           className="input mb-4"
           value={user?.email || ''}
           readOnly
         />
+        <br />
 
-      <br />
         <label className="label">Name</label> <br />
         <input
           type="text"
