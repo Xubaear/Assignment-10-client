@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router'; 
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   useEffect(() => {
     document.title = 'Login';
   }, []);
 
-  const { signIn, signInWithGoogle } = useContext(AuthContext); 
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const emailRef = useRef();
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogin = (e) => {
@@ -22,25 +24,25 @@ const Login = () => {
     signIn(email, password)
       .then((res) => {
         const user = res.user;
-        console.log(user);
+        toast.success('Login successful!');
 
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        alert(error.message);
+        toast.error('Login failed');
       });
   };
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        toast.success('Google login successful!');
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        toast.error('Login failed');
       });
   };
 
@@ -85,6 +87,9 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 };

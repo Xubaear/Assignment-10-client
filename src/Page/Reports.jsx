@@ -53,7 +53,7 @@ const Reports = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mt-10  space-y-12">
+    <div className="flex flex-col items-center my-10  space-y-12">
       
       <div className="text-center">
         <h2 className="text-3xl font-bold mb-6">Expense by Category</h2>

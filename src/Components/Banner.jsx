@@ -55,8 +55,8 @@ const Banner = () => {
       <div className='flex flex-col md:flex-row justify-center items-center gap-4 mt-12 max-w-2xl mx-auto'>
         <div className="cart">
           <div className="cart2">
-            <span className='text-4xl'>Balance</span>
-            <p className='text-2xl mt-2'>{balance} Taka</p>
+            <span className='text-4xl  text-gray-900 dark:text-white'>Balance</span>
+            <p className='text-2xl mt-2  text-gray-800 dark:text-gray-200'>{balance} Taka</p>
           </div>
         </div>
 

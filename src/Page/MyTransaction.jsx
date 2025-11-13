@@ -67,7 +67,7 @@ const MyTransaction = () => {
 
   return (
     <PrivateRoute>
-      <div className="max-w-5xl mx-auto mt-10">
+      <div className="max-w-5xl mx-auto my-10">
         <h2 className="text-3xl font-bold mb-6 text-center">My Transactions</h2>
 
         
@@ -93,7 +93,7 @@ const MyTransaction = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {transactions.map(t => (
-              <div key={t._id} className="card bg-gray-900 shadow-md p-5">
+              <div key={t._id} className="card bg-gray-200 dark:bg-gray-900 shadow-md p-5">
                 <div className="flex justify-between items-start">
                   <h3 className="font-bold text-lg capitalize">{t.category}</h3>
                   <span className="text-sm">{t.type}</span>

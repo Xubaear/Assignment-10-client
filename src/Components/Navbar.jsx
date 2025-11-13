@@ -3,6 +3,22 @@ import { Link } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
+
+const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
+  
   const { user, logOut } = useContext(AuthContext);
   
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -35,8 +51,23 @@ const Navbar = () => {
     </>
   );
 
+
+   
+
+
   return (
-    <div className="navbar bg-gray-800 text-white max-w-6xl mx-auto rounded-xl shadow-md">
+    <div className="navbar bg-gray-200 dark:bg-gray-800 text-gray-900  dark:text-white max-w-6xl mx-auto rounded-xl shadow-md">
+      
+
+
+
+
+
+
+
+
+
+
       
       <div className="navbar-start">
         <div className="dropdown">
@@ -64,6 +95,14 @@ const Navbar = () => {
           )}
         </div>
         <Link to="/" className="btn btn-ghost text-xl ml-2">FinEase</Link>
+ <div className="mr-3">
+        <input
+           onChange={(e) => handleTheme(e.target.checked)}
+           type="checkbox"
+           defaultChecked={localStorage.getItem('theme') === "dark"}
+           className="toggle"/>
+   </div>
+
       </div>
 
       
@@ -71,17 +110,24 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
 
+
+
+
+
+
+
       
       <div className="navbar-end relative" ref={profileRef}>
         {user ? (
           <>
+         
             <img
               src={user.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
               className="w-10 h-10 rounded-full cursor-pointer border-2 border-green-500"
               onClick={() => setProfileOpen(!profileOpen)}
             />
             {profileOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-gray-700 rounded shadow p-3 z-50">
+              <div className="absolute right-0 mt-40 w-60 bg-gray-700 rounded shadow p-3 z-50">
                 <Link to="/my-profile"><p className="text-center font-medium cursor-pointer">My Profile</p></Link>
                 <p className="text-center">{user.email}</p>
                 <button onClick={handleLogout} className="btn btn-error w-full btn-sm mt-2">Logout</button>

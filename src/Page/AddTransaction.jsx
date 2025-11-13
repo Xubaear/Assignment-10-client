@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddTransaction = () => {
   const { user } = useContext(AuthContext);
@@ -13,9 +15,8 @@ const AddTransaction = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     if (!amount || !date || !category) {
-      alert("Please fill all required fields!");
+      toast.error("Please fill all required fields!");
       return;
     }
 
@@ -24,7 +25,7 @@ const AddTransaction = () => {
       category,
       amount: parseFloat(amount),
       description,
-      date: new Date(date), 
+      date: new Date(date),
       email: user?.email,
       name: user?.displayName,
     };
@@ -41,21 +42,20 @@ const AddTransaction = () => {
       const data = await res.json();
 
       if (data.insertedId) {
-        alert('Transaction added successfully!');
+        toast.success('Transaction added successfully!');
         setType('income');
         setCategory('');
         setAmount('');
         setDescription('');
         setDate('');
 
-        
         window.dispatchEvent(new Event('transactionsUpdated'));
       } else {
-        alert('Failed to add transaction!');
+        toast.error('Failed to add transaction!');
       }
     } catch (err) {
       console.error(err);
-      alert('Failed to add transaction!');
+      toast.error('Failed to add transaction!');
     }
   };
 
@@ -64,12 +64,12 @@ const AddTransaction = () => {
   }, []);
 
   return (
-    <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md">
+    <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-300 dark:bg-gray-800 shadow-md rounded-md mb-10 text-gray-900 dark:text-white">
       <h2 className="text-2xl font-bold mb-6 text-center">Add Transaction</h2>
       <form onSubmit={handleSubmit}>
-        <label className="label">Type</label>
+        <label className="label text-gray-700 dark:text-gray-300">Type</label>
         <select
-          className="input mb-4"
+          className="input mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
@@ -77,9 +77,9 @@ const AddTransaction = () => {
           <option value="expense">Expense</option>
         </select>
 
-        <label className="label">Category</label>
+        <label className="label text-gray-700 dark:text-gray-300">Category</label>
         <select
-          className="input mb-4"
+          className="input mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           required
@@ -91,44 +91,44 @@ const AddTransaction = () => {
           <option value="other">Other</option>
         </select>
 
-        <label className="label">Amount</label>
+        <label className="label text-gray-700 dark:text-gray-300">Amount</label>
         <input
           type="number"
-          className="input mb-4"
+          className="input mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-300"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
         />
 
-        <label className="label">Description</label>
+        <label className="label text-gray-700 dark:text-gray-300">Description</label>
         <input
           type="text"
-          className="input mb-4"
+          className="input mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-300"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <label className="label">Date</label>
+        <label className="label text-gray-700 dark:text-gray-300">Date</label>
         <input
           type="date"
-          className="input mb-4"
+          className="input mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
         />
 
-        <label className="label">Email</label>
+        <label className="label text-gray-700 dark:text-gray-300">Email</label>
         <input
           type="text"
-          className="input mb-4"
+          className="input mb-4 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100"
           value={user?.email || ''}
           readOnly
         />
 
-        <label className="label">Name</label>
+        <label className="label text-gray-700 dark:text-gray-300">Name</label>
         <input
           type="text"
-          className="input mb-4"
+          className="input mb-4 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100"
           value={user?.displayName || ''}
           readOnly
         />
@@ -137,6 +137,9 @@ const AddTransaction = () => {
           Add Transaction
         </button>
       </form>
+
+     
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 };

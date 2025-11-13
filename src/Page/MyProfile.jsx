@@ -5,7 +5,7 @@ const MyProfile = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md text-white">
+    <div className="max-w-md mx-auto my-10  p-6 bg-gray-800 shadow-md rounded-md text-white ">
       <h2 className="text-2xl font-bold mb-6 text-center">My Profile</h2>
 
       <div className="flex flex-col items-center gap-4">

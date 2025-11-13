@@ -54,13 +54,14 @@ const router = createBrowserRouter([
         path: '/register',
         Component: Register
       },
-      {
-        path: '/*',
-        Component: Error
-      }
+      
     ],
     
   },
+  {
+        path: '/*',
+        Component: Error
+      }
   
 ]);
 

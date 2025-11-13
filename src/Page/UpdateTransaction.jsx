@@ -57,7 +57,7 @@ const UpdateTransaction = () => {
 
     
     if (!category || !amount || !date) {
-      Swal.fire("Missing", "Please fill required fields", "warning");
+      Swal.fire("Please fill required fields");
       return;
     }
 
@@ -97,11 +97,13 @@ const UpdateTransaction = () => {
 
   return (
     <PrivateRoute>
-      <div className="max-w-sm mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-md">
+      <div className="max-w-sm mx-auto my-10 p-6 bg-gray-200 dark:bg-gray-800 shadow-md rounded-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Update Transaction</h2>
 
         {loading ? (
-          <p className="text-center">Loading transaction...</p>
+          <div className="flex items-center justify-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <label className="label">Type</label> <br />

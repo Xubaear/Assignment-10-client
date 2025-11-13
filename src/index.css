@@ -74,12 +74,19 @@
 .cart2 {
  width: 230px;
  height: 150px;
- background-color: #1a1a1a;
+ background-color:var(--fallback-b1, #1a1a1a); 
+ /* //#1a1a1a; */
   display: flex;
   flex-direction: column;
   align-items: center;    /* horizontal center */
   justify-content: center; /* vertical center */
  transition: all .2s;
+
+ color: white;
+}
+[data-theme='light'] .cart2 {
+  background-color: #f3f4f6;
+  color: #111;
 }
 
 .cart2:hover {

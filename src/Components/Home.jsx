@@ -11,9 +11,9 @@ const Home = () => {
     document.title = 'Home';
   }, []);
     return (
-        <div>
+        <div >
             <Banner></Banner>
-            <Footer></Footer>
+            
                 
                
                 

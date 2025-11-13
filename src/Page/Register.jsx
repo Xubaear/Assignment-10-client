@@ -1,38 +1,33 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router'; 
+import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   useEffect(() => {
     document.title = 'Register';
   }, []);
 
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
-
-  
   const { createUser, setUser, signInWithGoogle } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess(false);
 
     const form = e.target;
     const name = form.name.value;
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log({ name, photo });
 
     const passwordPattern = /^.{6,}$/;
     const casePatterns = /^(?=.*[a-z])(?=.*[A-Z]).+$/;
 
     if (!passwordPattern.test(password)) {
-      setError('Password must be six characters or more');
+      toast.error('Password must be six characters or more');
       return;
     } else if (!casePatterns.test(password)) {
-      setError('Password must have at least one uppercase & one lowercase character');
+      toast.error('Password must have at least one uppercase & one lowercase character');
       return;
     }
 
@@ -40,23 +35,21 @@ const Register = () => {
       .then((res) => {
         const user = res.user;
         setUser(user);
-        setSuccess(true);
+        toast.success('Account created successfully!');
       })
       .catch((error) => {
-        setError(error.message);
+        toast.error(error.message);
       });
   };
 
   const handleGoogleRegister = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
         setUser(result.user);
-        setSuccess(true);
+        toast.success('Google registration successful!');
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.message);
+        toast.error(error.message);
       });
   };
 
@@ -82,11 +75,8 @@ const Register = () => {
                 <input name="password" type="password" className="input" placeholder="Password" required />
               </fieldset>
 
-              {success && <p className="text-green-500 mt-2">Account created successfully.</p>}
-              {error && <p className="text-red-500 mt-2">{error}</p>}
-
               <div className="w-160">
-                <button type="submit" className="btn btn-neutral w-1/2">
+                <button type="submit" className="btn btn-neutral w-1/2 mt-2">
                   Register
                 </button>
               </div>
@@ -98,7 +88,7 @@ const Register = () => {
               Google
             </button>
 
-            <p>
+            <p className="mt-3">
               Already Have An Account?{' '}
               <Link to="/login" className="underline text-green-500">
                 Login
@@ -107,6 +97,9 @@ const Register = () => {
           </div>
         </div>
       </div>
+
+      
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 };
