@@ -20,7 +20,7 @@ const UpdateTransaction = () => {
   const fetchTransaction = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/transaction/${id}`);
+      const res = await fetch(`https://fineease-server.vercel.app/transaction/${id}`);
       const data = await res.json();
       if (data) {
         setType(data.type || "income");
@@ -73,7 +73,7 @@ const UpdateTransaction = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/transaction/update/${id}`, {
+      const res = await fetch(`hhttps://fineease-server.vercel.app/transaction/update/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated),

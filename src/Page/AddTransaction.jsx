@@ -33,7 +33,7 @@ const AddTransaction = () => {
     console.log("Submitting:", transactionData);
 
     try {
-      const res = await fetch('http://localhost:3000/add-transaction', {
+      const res = await fetch('https://fineease-server.vercel.app/add-transaction', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transactionData),

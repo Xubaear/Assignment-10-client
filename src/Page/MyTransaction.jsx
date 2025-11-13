@@ -16,7 +16,7 @@ const MyTransaction = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3000/my-transactions?email=${user.email}&sortBy=${sortBy}&order=${order}`
+        `https://fineease-server.vercel.app/my-transactions?email=${user.email}&sortBy=${sortBy}&order=${order}`
       );
       const data = await res.json();
       setTransactions(data || []);
@@ -48,7 +48,7 @@ const MyTransaction = () => {
 
     if (confirm.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:3000/transaction/${id}`, { method: "DELETE" });
+        const res = await fetch(`https://fineease-server.vercel.app/transaction/${id}`, { method: "DELETE" });
         if (res.ok) {
           setTransactions(prev => prev.filter(t => t._id !== id));
           Swal.fire("Deleted!", "Transaction removed successfully!", "success");

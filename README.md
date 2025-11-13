@@ -1,16 +1,14 @@
-# React + Vite
+# FineEase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FineEase is a simple and intuitive personal finance management web application designed to help users track their income, expenses, and generate reports efficiently.
 
-Currently, two official plugins are available:
+## Live Site
+[Live Demo](YOUR_LIVE_SITE_URL_HERE)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Add Transactions:** Easily add income and expense transactions with details such as category, amount, description, and date.
+- **View My Transactions:** Access a list of all your transactions in one place and filter them by type or category.
+- **Reports & Analytics:** Generate summaries and reports of your financial activities to understand your spending habits.
+- **Secure Authentication:** Login and register securely using email/password or Google authentication.
+- **User-friendly Interface:** Responsive and easy-to-use interface with a clean layout for seamless navigation.

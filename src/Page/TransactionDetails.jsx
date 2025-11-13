@@ -16,13 +16,13 @@ const TransactionDetails = () => {
   const fetchDetails = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/transaction/${id}`);
+      const res = await fetch(`https://fineease-server.vercel.app/transaction/${id}`);
       const data = await res.json();
       setTransaction(data || null);
 
      
       if (user?.email && data?.category) {
-        const res2 = await fetch(`http://localhost:3000/my-transactions?email=${user.email}`);
+        const res2 = await fetch(`https://fineease-server.vercel.app/my-transactions?email=${user.email}`);
         const all = await res2.json();
         const sameCategory = (all || []).filter(t => t.category === data.category);
         const sum = sameCategory.reduce((acc, cur) => acc + Number(cur.amount || 0), 0);
@@ -53,7 +53,7 @@ const TransactionDetails = () => {
 
     if (confirm.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:3000/transaction/${id}`, { method: "DELETE" });
+        const res = await fetch(`https://fineease-server.vercel.app/transaction/${id}`, { method: "DELETE" });
         if (res.ok) {
           Swal.fire("Deleted!", "Transaction removed successfully!", "success").then(() => {
             window.location.href = "/my-transactions";

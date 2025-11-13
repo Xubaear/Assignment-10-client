@@ -9,7 +9,7 @@ const Banner = () => {
   const fetchTransactions = async () => {
     if (!user) return;
     try {
-      const res = await fetch(`http://localhost:3000/my-transactions?email=${user.email}`);
+      const res = await fetch(`https://fineease-server.vercel.app/my-transactions?email=${user.email}`);
       const data = await res.json();
       setTransactions(data);
     } catch (err) {

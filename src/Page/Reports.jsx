@@ -17,7 +17,7 @@ const Reports = () => {
     setError("");
 
    
-    fetch("http://localhost:3000/reports/category")
+    fetch("https://fineease-server.vercel.app/reports/category")
       .then((res) => res.json())
       .then((data) => {
         setReport(Array.isArray(data) ? data : []);
@@ -29,7 +29,7 @@ const Reports = () => {
       });
 
     
-    fetch("http://localhost:3000/reports/monthly")
+    fetch("https://fineease-server.vercel.app/reports/monthly")
       .then((res) => res.json())
       .then((data) => {
         setMonthlyReport(Array.isArray(data) ? data : []);
