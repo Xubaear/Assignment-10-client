@@ -13,6 +13,7 @@ import UpdateTransaction from '../Page/UpdateTransaction';
 import MyProfile from '../Page/MyProfile';
 import About from '../Page/About';
 import Contacts from '../Page/Contacts';
+import Blog from '../Page/Blog';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         Component: Register
+      },
+      {
+        path: '/blog',
+        Component: Blog
       },
       {
         path: '/about',
