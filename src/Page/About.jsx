@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const About = () => {
+
+     useEffect(() => {
+        document.title = 'About Us';
+      }, []);
     return (
+        
         <div>
             <div className='flex justify-around items-center gap-7 mt-20 my-20'>
                 <div className='w-[30%]'>

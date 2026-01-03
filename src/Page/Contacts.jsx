@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdOutlineEmail } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 import { SlLocationPin } from "react-icons/sl";
 
 const Contacts = () => {
+     useEffect(() => {
+        document.title = 'Contacts';
+      }, []);
     return (
         <div>
             <h2 className='text-5xl font-semibold mt-10 ml-14'>Contact Us</h2>

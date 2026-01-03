@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaRegHandPointRight } from "react-icons/fa6";
 
 const Blog = () => {
+     useEffect(() => {
+        document.title = 'Blogs';
+      }, []);
     return (
         <div className='mt-20 my-20'>
             <h2 className='text-4xl font-bold mx-16 flex items-center gap-7 '><FaRegHandPointRight />Where Does Your Money Go? The Power of Expense Tracking</h2>
