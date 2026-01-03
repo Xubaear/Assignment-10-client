@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import loginImg from '../../src/assets/Login.png'
 const Login = () => {
   useEffect(() => {
     document.title = 'Login';
@@ -47,7 +47,8 @@ const Login = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className='flex justify-center items-center'>
+      <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
           <div className="card-body">
@@ -90,6 +91,11 @@ const Login = () => {
 
       
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+    </div>
+
+    <div>
+<img src={loginImg} className='hidden md:block h-100 w-400 rounded-2xl pr-24 ' alt="" />
+    </div>
     </div>
   );
 };
