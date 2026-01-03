@@ -48,6 +48,11 @@ const Login = () => {
 
   return (
     <div className='flex justify-center items-center'>
+
+    <div>
+<img src={loginImg} className='hidden md:block h-100 w-400 rounded-2xl pl-24 ' alt="" />
+    </div>
+
       <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
@@ -93,9 +98,7 @@ const Login = () => {
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
 
-    <div>
-<img src={loginImg} className='hidden md:block h-100 w-400 rounded-2xl pr-24 ' alt="" />
-    </div>
+    
     </div>
   );
 };

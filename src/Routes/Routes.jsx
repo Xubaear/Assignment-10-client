@@ -11,6 +11,8 @@ import Reports from '../Page/Reports';
 import TransactionDetails from '../Page/TransactionDetails';
 import UpdateTransaction from '../Page/UpdateTransaction';
 import MyProfile from '../Page/MyProfile';
+import About from '../Page/About';
+import Contacts from '../Page/Contacts';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
         path: '/register',
         Component: Register
       },
+      {
+        path: '/about',
+        Component: About
+      },
+      {
+        path: '/contact',
+        Component: Contacts
+      }
       
     ],
     

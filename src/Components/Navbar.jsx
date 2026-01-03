@@ -48,6 +48,8 @@ const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
       {user && <li><Link to="/add-transaction">Add Transaction</Link></li>}
       {user && <li><Link to="/my-transactions">My Transaction</Link></li>}
       {user && <li><Link to="/reports">Reports</Link></li>}
+      <li><Link to='/contact'>Contacts</Link></li>
+      <li><Link to='/about'>About Us</Link></li>
     </>
   );
 
