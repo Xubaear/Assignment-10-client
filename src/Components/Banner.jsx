@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import Slider from '../Page/Slider';
 
 const Banner = () => {
   const { user } = useContext(AuthContext);
@@ -35,6 +36,9 @@ const Banner = () => {
   return (
     <>
       <div>
+
+<Slider></Slider>
+
         <section className=" max-w-6xl mx-auto mt-12 flex items-center justify-center">
           <div className="max-w-3xl p-8 rounded-3xl bg-white/90 dark:bg-gray-800/80 text-center shadow-2xl">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 dark:text-gray-100 leading-tight">
