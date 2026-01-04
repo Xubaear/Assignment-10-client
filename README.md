@@ -3,7 +3,7 @@
 FineEase is a simple and intuitive personal finance management web application designed to help users track their income, expenses, and generate reports efficiently.
 
 ## Live Site
-[Live Demo](https://timely-moonbeam-d81544.netlify.app/)
+[Click Here for Live Demo](https://finease-client-7.netlify.app/)
 
 ## Features
 
