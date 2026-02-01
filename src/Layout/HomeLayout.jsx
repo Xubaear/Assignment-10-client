@@ -9,13 +9,11 @@ import Footer from '../Components/Footer';
 const HomeLayout = () => {
     return (
         <div>
-          
-           <Navbar></Navbar>
-           <Outlet></Outlet>
-           <Footer></Footer>
-          
-           
-            
+                    <Navbar />
+                    <main className="site-content">
+                        <Outlet />
+                    </main>
+                    <Footer />
         </div>
     );
 };

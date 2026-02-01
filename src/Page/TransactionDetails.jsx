@@ -1,7 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router";
 import PrivateRoute from "../Provider/PrivateRoute";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import foodImg from '../../src/assets/food.jpg';
+import homeImg from '../../src/assets/home.jpg';
+import othersImg from '../../src/assets/others.jpg';
+import salaryimg from '../../src/assets/salary.webp';
 
 const TransactionDetails = () => {
 
@@ -68,33 +73,139 @@ const TransactionDetails = () => {
     }
   };
 
-  const handleUpdate = () => (window.location.href = `/transaction/update/${id}`);
+  const navigate = useNavigate();
+  const handleUpdate = () => navigate(`/transaction/update/${id}`);
+  const handleBack = () => navigate("/my-transactions");
 
-  if (loading) return <p className="text-center mt-6">Loading...</p>;
-  if (!transaction) return <p className="text-center mt-6">Transaction not found.</p>;
+  const getCategoryImage = (category) => {
+    const cat = (category || '').toLowerCase();
+    if (cat.includes('food')) return foodImg;
+    if (cat.includes('salary')) return salaryimg;
+    if (cat.includes('home')) return homeImg;
+    return othersImg;
+  };
+
+  
+
+  if (loading) {
+    return (
+      <PrivateRoute>
+        <div className="flex items-center justify-center h-screen">
+          <span className="loading loading-dots loading-xl"></span>
+        </div>
+      </PrivateRoute>
+    );
+  }
+
+  if (!transaction) {
+    return (
+      <PrivateRoute>
+        <div className="text-center mt-10 p-6">
+          <p className="text-red-500 text-xl">Transaction not found.</p>
+          <button onClick={handleBack} className="btn btn-primary mt-4">Back to Transactions</button>
+        </div>
+      </PrivateRoute>
+    );
+  }
 
   return (
     <PrivateRoute>
-      <div className="max-w-3xl mx-auto my-10 p-6 bg-gray-300 dark:bg-gray-900 shadow-md rounded-md">
-        <h2 className="text-2xl font-bold mb-4">Transaction Details</h2>
+      <div className="max-w-5xl mx-auto my-10 px-4">
+        {/* Overview Section with Image */}
+        <div className="card bg-[#C3CC99] dark:bg-gray-800 shadow-xl rounded-lg mb-6 overflow-hidden">
+          <div className="h-64 md:h-80 bg-gray-100 dark:bg-gray-700 overflow-hidden">
+            <img 
+              src={transaction.image || getCategoryImage(transaction.category)} 
+              alt={transaction.category || 'Transaction'} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="card-body">
+            <h2 className="card-title text-3xl mb-4 text-gray-900 dark:text-white">
+              {transaction.title || transaction.category || 'Transaction Details'}
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-gray-300 dark:bg-gray-900 p-4 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Category</p>
+                <p className="text-xl font-semibold text-gray-900 dark:text-white capitalize">{transaction.category || 'N/A'}</p>
+              </div>
+              <div className="bg-gray-300 dark:bg-gray-900 p-4 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Type</p>
+                <p className="text-xl font-semibold text-gray-900 dark:text-white capitalize">{transaction.type || 'N/A'}</p>
+              </div>
+              <div className="bg-gray-300 dark:bg-gray-900 p-4 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Amount</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">{Number(transaction.amount || 0).toLocaleString()} Tk</p>
+              </div>
+              <div className="bg-gray-300 dark:bg-gray-900 p-4 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Date</p>
+                <p className="text-xl font-semibold text-gray-900 dark:text-white">
+                  {transaction.date ? new Date(transaction.date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  }) : 'N/A'}
+                </p>
+              </div>
+            </div>
 
-        <div className="mb-4">
-          <p><strong>Category:</strong> {transaction.category}</p>
-          <p><strong>Type:</strong> {transaction.type}</p>
-          <p><strong>Amount:</strong> {Number(transaction.amount).toLocaleString()} Tk</p>
-          <p><strong>Date:</strong> {transaction.date ? new Date(transaction.date).toLocaleDateString() : ""}</p>
-          <p><strong>Description:</strong> {transaction.description || ""}</p>
+            {transaction.description && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Description</h3>
+                <p className="text-gray-700 dark:text-gray-300 p-4 bg-gray-300 dark:bg-gray-900 rounded-lg">
+                  {transaction.description}
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-3">
+              <button onClick={handleUpdate} className="btn btn-warning">Update Transaction</button>
+              <button onClick={handleDelete} className="btn btn-error">Delete Transaction</button>
+              <button onClick={handleBack} className="btn btn-ghost">Back to Transactions</button>
+            </div>
+          </div>
         </div>
 
-        <div className="mb-4">
-          <p><strong>Total for category - "{transaction.category}" :</strong> {Number(categoryTotal).toLocaleString()} Tk</p>
+        {/* Key Information Section */}
+        <div className="card bg-[#C3CC99] dark:bg-gray-800 shadow-xl rounded-lg mb-6">
+          <div className="card-body">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Key Information</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                <span className="text-gray-600 dark:text-gray-400">Transaction ID</span>
+                <span className="font-mono text-sm text-gray-900 dark:text-white">{transaction._id || id}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                <span className="text-gray-600 dark:text-gray-400">Total for Category</span>
+                <span className="font-semibold text-lg text-green-600 dark:text-green-400">
+                  {Number(categoryTotal || 0).toLocaleString()} Tk
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600 dark:text-gray-400">Category</span>
+                <span className="font-semibold text-gray-900 dark:text-white capitalize">{transaction.category || 'N/A'}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="flex gap-3">
-          <button onClick={handleUpdate} className="btn btn-warning btn-sm">Update</button>
-          <button onClick={handleDelete} className="btn btn-error btn-sm">Delete</button>
-          <button onClick={() => (window.location.href = "/my-transactions")} className="btn btn-ghost btn-sm">Back</button>
-        </div>
+        {/* Related Categories Section with Images
+        <div className="card bg-white dark:bg-gray-800 shadow-xl rounded-lg">
+          <div className="card-body">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Transaction Categories</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {relatedCategories.map((cat, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="h-24 bg-gray-100 dark:bg-gray-700 rounded-lg mb-2 overflow-hidden">
+                    <img src={relatedImages[idx]} alt={cat} className="w-full h-full object-cover" />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{cat}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div> */}
       </div>
     </PrivateRoute>
   );

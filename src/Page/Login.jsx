@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +11,8 @@ const Login = () => {
 
   const { signIn, signInWithGoogle } = useContext(AuthContext);
   const emailRef = useRef();
+  const passwordRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,17 +22,23 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    if (!email || !password) {
+      toast.error('Please provide email and password');
+      return;
+    }
 
+    setLoading(true);
     signIn(email, password)
       .then((res) => {
-        const user = res.user;
+        setLoading(false);
         toast.success('Login successful!');
 
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        toast.error('Login failed');
+        setLoading(false);
+        toast.error('Login failed: ' + (error.message || 'Please try again'));
       });
   };
 
@@ -70,15 +78,42 @@ const Login = () => {
                 />
 
                 <label className="label">Password</label>
-                <input name="password" type="password" className="input" placeholder="Password" />
+                <input name="password" type="password" className="input" placeholder="Password" ref={passwordRef} />
 
                 <button type="submit" className="btn btn-neutral mt-4">
-                  Login
+                  {loading ? 'Logging in...' : 'Login'}
                 </button>
 
                 <p className="text-center">-------Or login with-------</p>
               </fieldset>
             </form>
+
+            <div className="flex gap-2 mt-4 justify-center flex-wrap">
+              <button
+                className="btn btn-sm btn-outline"
+                onClick={() => {
+                  // demo credentials autofill
+                  if (emailRef.current) emailRef.current.value = 'ph@gmail.com';
+                  if (passwordRef.current) passwordRef.current.value = '123Abc@';
+                }}
+              >
+                Demo User
+              </button>
+              <button
+                className="btn btn-sm"
+                onClick={() => {
+                  // autofill and submit
+                  if (emailRef.current) emailRef.current.value = 'ph@gmail.com';
+                  if (passwordRef.current) passwordRef.current.value = '123Abc@';
+                  const evt = new Event('submit', { bubbles: true, cancelable: true });
+                  // submit form programmatically
+                  const form = document.querySelector('form');
+                  if (form) form.dispatchEvent(evt);
+                }}
+              >
+                Demo & Sign In
+              </button>
+            </div>
 
             <button onClick={handleGoogleSignIn} className="btn bg-white text-black border-[#e5e5e5]">
               Google

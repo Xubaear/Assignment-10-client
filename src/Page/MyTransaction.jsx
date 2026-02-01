@@ -91,20 +91,30 @@ const MyTransaction = () => {
         {transactions.length === 0 && !loading ? (
           <p className="text-center">No transactions found.</p>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {transactions.map(t => (
-              <div key={t._id} className="card bg-gray-200 dark:bg-gray-900 shadow-md p-5">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-bold text-lg capitalize">{t.category}</h3>
-                  <span className="text-sm">{t.type}</span>
+              <div key={t._id} className="card bg-[#E2E4F6] dark:bg-gray-800 shadow-lg rounded-lg p-5 h-full flex flex-col border border-gray-200 dark:border-gray-700">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-bold text-lg capitalize text-gray-900 dark:text-white">{t.category || 'N/A'}</h3>
+                  <span className={`badge ${t.type === 'income' ? 'badge-success' : 'badge-error'}`}>{t.type || 'N/A'}</span>
                 </div>
-                <p className="mt-2">Amount: {Number(t.amount).toLocaleString()} Tk</p>
-                <p>Date: {t.date ? new Date(t.date).toLocaleDateString() : "N/A"}</p>
-                {t.description && <p className="mt-2">Note: {t.description}</p>}
-                <div className="flex gap-3 ">
-                  <button onClick={() => handleUpdate(t._id)} className="btn btn-warning btn-sm">Update</button>
-                  <button onClick={() => handleDelete(t._id)} className="btn btn-error btn-sm">Delete</button>
-                  <button onClick={() => handleView(t._id)} className="btn btn-info btn-sm">View Details</button>
+                <div className="flex-grow space-y-2 mb-4">
+                  <p className="text-gray-700 dark:text-gray-300">
+                    <span className="font-semibold">Amount:</span> <span className="text-green-600 dark:text-green-400 font-bold">{Number(t.amount || 0).toLocaleString()} Tk</span>
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    <span className="font-semibold">Date:</span> {t.date ? new Date(t.date).toLocaleDateString() : "N/A"}
+                  </p>
+                  {t.description && (
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-2 line-clamp-2">
+                      <span className="font-semibold">Note:</span> {t.description}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  <button onClick={() => handleUpdate(t._id)} className="btn btn-warning btn-sm flex-1">Update</button>
+                  <button onClick={() => handleDelete(t._id)} className="btn btn-error btn-sm flex-1">Delete</button>
+                  <button onClick={() => handleView(t._id)} className="btn btn-primary btn-sm w-full">View Details</button>
                 </div>
               </div>
             ))}

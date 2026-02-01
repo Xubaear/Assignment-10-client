@@ -8,25 +8,24 @@ import img4 from '../../src/assets/img 4.png';
 
 const Slider = () => {
     return (
-        <Carousel className='flex justify-center items-center h-80 w-200 mx-auto mt-30 my-40'
+        <Carousel className='w-full max-w-4xl mx-auto mt-8 mb-8'
          autoPlay={true}
                   infiniteLoop={true}
                   showThumbs={false}
         >
-                <div >
-                    <img src={img1} className='rounded-2xl' />
+                    <div className='px-4'>
+                        <img src={img1} className='rounded-2xl w-full h-48 sm:h-64 object-cover' />
+                    </div>
+                <div>
+                        <img src={img2} className='rounded-2xl w-full h-48 sm:h-64 object-cover' />
                     
                 </div>
                 <div>
-                    <img src={img2} className='rounded-2xl' />
+                        <img src={img3} className='rounded-2xl w-full h-48 sm:h-64 object-cover' />
                     
                 </div>
                 <div>
-                    <img src={img3} className='rounded-2xl' />
-                    
-                </div>
-                <div>
-                    <img src={img4} className='rounded-2xl' />
+                        <img src={img4} className='rounded-2xl w-full h-48 sm:h-64 object-cover' />
                     
                 </div>
             </Carousel>

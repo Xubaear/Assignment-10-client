@@ -1,26 +1,17 @@
 import React, { useEffect } from 'react';
 import Banner from './Banner';
-import Footer from './Footer';
-
-
-
+import HomeSections from './HomeSections';
 
 const Home = () => {  
-    
     useEffect(() => {
-    document.title = 'Home';
-  }, []);
+        document.title = 'Home';
+    }, []);
+    
     return (
-        <div >
-            <Banner></Banner>
-            
-                
-               
-                
-
-
+        <div>
+            <Banner />
+            <HomeSections />
         </div>
-        
     );
 };
 

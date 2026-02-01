@@ -125,13 +125,7 @@ const AddTransaction = () => {
           readOnly
         />
 
-        <label className="label text-gray-700 dark:text-gray-300">Name</label>
-        <input
-          type="text"
-          className="input mb-4 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100"
-          value={user?.displayName || ''}
-          readOnly
-        />
+        
 
         <button type="submit" className="btn btn-neutral w-full mt-4">
           Add Transaction
